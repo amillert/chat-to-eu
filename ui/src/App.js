@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CHATBOT_ENDPOINT = "http://localhost:5000/chatbot"
+const CHATBOT_ENDPOINT = "https://us-central1-chat-to-eu-hbadgs.cloudfunctions.net/api "
 const USER_MSG = "user"
 const CHATBOT_MSG = "chatbot"
 
@@ -11,9 +11,9 @@ export default class App extends React.Component {
   render() {
     const sendToChatbot = msg => {
       fetch(CHATBOT_ENDPOINT, {
-        method: 'PUT',
+        method: 'POST',
         body: JSON.stringify({ msg: msg }),
-        headers: { "Content-type": "application/json; charset=UTF-8" }
+        headers: { "Content-Type": "application/json" }
       }).then(res => { return res.json() }).then(json => {
         this.setState({ messages: [...this.state.messages, { msg: json.text[0], type: CHATBOT_MSG }] });
       })
@@ -21,6 +21,9 @@ export default class App extends React.Component {
     const sendMsg = e => {
       e.preventDefault();
       let msg = e.target.elements.input.value;
+      if (!msg || msg === "") {
+        return
+      }
       this.setState({ messages: [...this.state.messages, { msg: msg, type: USER_MSG }] });
       sendToChatbot(msg);
       e.target.reset();
