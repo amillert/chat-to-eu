@@ -25,7 +25,7 @@ class Modeler:
             idx2word = corpora.Dictionary(lemms)
             corpus = [idx2word.doc2bow(text) for text in lemms]
             self.lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus, id2word=idx2word, num_topics=20, update_every=1, chunksize=100, passes=20, alpha='auto', per_word_topics=True)
-            self.save_model(lda_model)
+            self.save_model()
             # lda_model.update(other_corpus)
             # vector = lda_model[unseen_doc]
 
@@ -38,8 +38,8 @@ class Modeler:
         allowed_postags = ["NOUN", "ADJ", "VERB", "ADV", "NUM"]
         return [[token.lemma_ for token in nlp(" ".join(para)) if token.pos_ in allowed_postags] for para in bigrams]
     
-    def save_model(self, lda_model):
-        lda_model.save(self.tmp_path + "lda")
+    def save_model(self):
+        self.lda_model.save(self.tmp_path + "lda")
 
     def read_model(self):
         return gensim.models.ldamodel.LdaModel.load(self.tmp_path + "lda")
