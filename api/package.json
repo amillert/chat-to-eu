@@ -1,0 +1,17 @@
+{
+  "name": "chat-to-eu-api",
+  "version": "0.0.1",
+  "description": "HackYeah api solution for task chat to eu.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wojtii, devmood",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dialogflow": "^0.11.0",
+    "express": "^4.17.1",
+    "uuid": "^3.3.3"
+  }
+}
